@@ -3,12 +3,10 @@
 #include<algorithm>
 
 using namespace std;
-int check();
 void swapcheck();
-void doswap();
 void reversecheck();
 
-vector<int> v;
+vector<int> v,temp;
 int length;
 bool result=false;
 
@@ -21,7 +19,9 @@ int main(void)
         cin>>temp;
         v.push_back(temp);
     }
-    if(check())
+    temp=v;
+    sort(temp.begin(),temp.begin()+length);
+    if(temp==v)
     {
         result=true;
         cout<<"yes"<<endl;
@@ -31,30 +31,14 @@ int main(void)
     return 0;
 }
 
-int check()
-{
-    vector<int> temp;
-    temp=v;
-    sort(temp.begin(),temp.begin()+length);
-    if(v==temp)
-        return 1;
-    else
-        return 0;
-}
-
-void doswap(int a,int b)
-{
-    int temp=v[a];
-    v[a]=v[b];
-    v[b]=temp;
-}
-
 void swapcheck()
 {
     for(int i=0;i<length-1;i++)
     {
-        doswap(i,i+1);
-        if(check())
+        int temp2=v[i];
+        v[i]=v[i+1];
+        v[i+1]=temp2;
+        if(temp==v)
         {
             cout<<"yes"<<endl;
             cout<<"swap "<<i+1<<" "<<i+2;
@@ -62,7 +46,11 @@ void swapcheck()
             break;
         }
         else
-            doswap(i,i+1);
+            {
+                temp2=v[i];
+                v[i]=v[i+1];
+                v[i+1]=temp2;
+            }
     }
     if(!result)
         reversecheck();
@@ -70,5 +58,39 @@ void swapcheck()
 
 void reversecheck()
 {
-
+    for(int i=0;i<length;i++)
+    {
+        int indexone=i, indextwo=i;
+        for(int j=i+1;j<length;j++)
+        {
+            if(v[j]>v[j-1])
+                break;
+            else
+                indextwo=j;
+        }
+        if(indexone!=indextwo)
+        {
+            int first=indexone;
+            int last=indextwo;
+            while(first!=last&&(last-first)!=-1)
+            {
+                int temp2=v[first];
+                v[first]=v[last];
+                v[last]=temp2;
+                first++;
+                last--;
+            }
+            if(v==temp)
+            {
+                result=true;
+                cout<<"Yes"<<endl;
+                cout<<"Reverse "<<(indexone+1)<<" "<<(indextwo+1);
+                break;
+            }
+            else{
+                cout<<"No";
+                break;
+            }
+        }
+    }
 }
