@@ -12,18 +12,18 @@ using namespace std;
 void swapcheck();
 void reversecheck();
 
-vector<int> v,temp;
-int length;
+vector<int64_t> v,temp;
+int64_t length;
 bool result=false;
 
 int main(void)
 {
     cin>>length;
-    for(int i=0;i<length;i++)
+    for(int64_t i=0;i<length;i++)
     {
-        int temp;
-        cin>>temp;
-        v.push_back(temp);
+        int64_t temp2;
+        cin>>temp2;
+        v.push_back(temp2);
     }
     temp=v;
     sort(temp.begin(),temp.begin()+length);
@@ -39,35 +39,52 @@ int main(void)
 
 void swapcheck()
 {
-    for(int i=0;i<length-1;i++)
+    int64_t err_count=0,first,last;
+    for(int64_t i=0;i<length;i++)
     {
-        int temp2=v[i];
-        v[i]=v[i+1];
-        v[i+1]=temp2;
+        if(v[i]!=temp[i])
+            err_count++;
+    }
+    if(err_count<3)
+    {
+        for(int64_t j=0;j<length;j++)
+        {
+            if(v[j]!=temp[j])
+            {
+                first=j;
+                break;
+            }
+        }
+        for(int64_t k=0;k<length;k++)
+        {
+            if(v[k]!=temp[k]&&k!=first)
+            {
+                last=k;
+                break;
+            }
+        }
+        int64_t temp1=v[first];
+        v[first]=v[last];
+        v[last]=temp1;
         if(temp==v)
         {
-            cout<<"yes"<<endl;
-            cout<<"swap "<<i+1<<" "<<i+2;
             result=true;
-            break;
+            cout<<"yes"<<endl;
+            cout<<"swap "<<first+1<<" "<<last+1;
         }
-        else
-            {
-                temp2=v[i];
-                v[i]=v[i+1];
-                v[i+1]=temp2;
-            }
+        else result=false;
     }
+    else result=false;
     if(!result)
         reversecheck();
 }
 
 void reversecheck()
 {
-    for(int i=0;i<length;i++)
+    for(int64_t i=0;i<length;i++)
     {
-        int indexone=i, indextwo=i;
-        for(int j=i+1;j<length;j++)
+        int64_t indexone=i, indextwo=i;
+        for(int64_t j=i+1;j<length;j++)
         {
             if(v[j]>v[j-1])
                 break;
@@ -76,11 +93,11 @@ void reversecheck()
         }
         if(indexone!=indextwo)
         {
-            int first=indexone;
-            int last=indextwo;
+            int64_t first=indexone;
+            int64_t last=indextwo;
             while(first!=last&&(last-first)!=-1)
             {
-                int temp2=v[first];
+                int64_t temp2=v[first];
                 v[first]=v[last];
                 v[last]=temp2;
                 first++;
@@ -89,12 +106,12 @@ void reversecheck()
             if(v==temp)
             {
                 result=true;
-                cout<<"Yes"<<endl;
-                cout<<"Reverse "<<(indexone+1)<<" "<<(indextwo+1);
+                cout<<"yes"<<endl;
+                cout<<"reverse "<<(indexone+1)<<" "<<(indextwo+1);
                 break;
             }
             else{
-                cout<<"No";
+                cout<<"no";
                 break;
             }
         }
