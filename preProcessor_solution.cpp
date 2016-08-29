@@ -7,7 +7,7 @@
 #define toStr(x) #x
 #define io cin>>
 #define foreach(v,i) for(int i=0;i<v.size();i++)
-#define FUNCTION(name, operator) void name(int previous,int num){if((num)operator(previous)) previous=num;}
+#define FUNCTION(name, operator) void name(int previous,int num){if(num operator previous) previous=num;}
 #define INF v[0]
 
 #include <iostream>
