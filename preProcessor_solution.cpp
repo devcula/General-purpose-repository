@@ -9,6 +9,8 @@
 #define foreach(v,i) for(int i=0;i<v.size();i++)
 #define FUNCTION(name, operator) void name(int previous,int num){if(num operator previous) previous=num;}
 #define INF v[0]
+#define "int mn" //
+#define "int mx" //
 
 #include <iostream>
 #include <vector>
