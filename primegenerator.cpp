@@ -1,3 +1,9 @@
+/*
+*****File: primegenerator.cpp
+*****Author: Abhishek Prasad @ dEvCuLa
+*****Date of creation: 1st September, 2016
+*/
+ 
     #include <iostream>
     #include<math.h>
     using namespace std;
